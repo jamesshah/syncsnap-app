@@ -6,6 +6,6 @@ Todo:
 
 - [x] Setup nextjs project
 - [x] Setup DB
-- [ ] Setup auth
+- [x] Setup auth
 - [ ] Setup CI/CD
 - [ ] Projects listing and creation page
