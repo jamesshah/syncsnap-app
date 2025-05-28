@@ -6,7 +6,8 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from "@trpc/server";
+import { auth } from "@clerk/nextjs/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
@@ -27,6 +28,7 @@ import { db } from "~/server/db";
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     db,
+    auth: await auth(),
     ...opts,
   };
 };
@@ -103,3 +105,30 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
+
+/**
+ * Auth Middleware
+ */
+
+const authMiddleware = t.middleware(async ({ ctx, next }) => {
+  const { userId } = ctx.auth;
+  if (!userId)
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "Please login to SyncSnap",
+    });
+
+  return next({
+    ctx: {
+      auth: ctx.auth,
+    },
+  });
+});
+
+/**
+ * Protected (authenticated & authorized) procedure
+ *
+ * This procedure uses clerk to check if the user calling the TRPC API is authenticated/authorized or not
+ */
+
+export const protectedProcedure = t.procedure.use(authMiddleware);
