@@ -8,5 +8,7 @@ Todo:
 - [x] Setup DB
 - [x] Setup auth
 - [x] Projects listing page
-- [ ] Setup CI/CD
-- [ ] Projects creation page
+- [x] Projects creation page
+- [x] Setup CD
+- [ ] Project Details View
+- [ ] Setup CI with Github Actions

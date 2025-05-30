@@ -1,6 +1,6 @@
-import type { Projects } from "~/server/db/schema";
+import type { Project } from "~/server/db/schema";
 
-export const mockProjects: Projects[] = [
+export const mockProjects: Project[] = [
   {
     publicId: "project-2",
     name: "Project 2",

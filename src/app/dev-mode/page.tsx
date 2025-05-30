@@ -1,7 +1,7 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { mockProjects } from "~/lib/mock-data";
 import { db } from "~/server/db";
-import { projects } from "~/server/db/schema";
+import { projects_table } from "~/server/db/schema";
 
 export default function DevMode() {
   return (
@@ -22,7 +22,7 @@ export default function DevMode() {
           }
 
           await db
-            .insert(projects)
+            .insert(projects_table)
             .values(mockProjects.map((_p) => ({ ..._p, userId: user.userId })));
         }}
       >
