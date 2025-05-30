@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { ArrowUpRight, MoreHorizontal } from "lucide-react";
 
@@ -19,11 +20,10 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Badge } from "~/components/ui/badge";
-import type { Projects } from "~/server/db/schema";
-import { api } from "~/trpc/server";
+import { api } from "~/trpc/react";
 
-export async function ProjectsList() {
-  const filteredProjects: Projects[] = await api.project.getProjects();
+export function ProjectsList() {
+  const projects = api.project.getProjects.useQuery();
 
   return (
     <div className="space-y-6">
@@ -47,7 +47,7 @@ export async function ProjectsList() {
       </div> */}
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredProjects.map((project) => (
+        {projects.data?.map((project) => (
           <Link
             key={project.publicId}
             href={`/dashboard/${project.publicId}`}

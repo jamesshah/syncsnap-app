@@ -10,10 +10,10 @@ export const createTable = singlestoreTableCreator(
   (name) => `syncsnap-app_${name}`,
 );
 
-export const projects = createTable(
+export const projects_table = createTable(
   "projects",
   {
-    publicId: text("public_id").notNull().primaryKey(), // TODO:  generate it here?
+    publicId: text("public_id").primaryKey(), // TODO:  generate it here?
     name: text("name").notNull(),
     userId: text("user_id").notNull(),
     isDeleted: boolean("is_deleted").notNull().default(false),
@@ -25,4 +25,4 @@ export const projects = createTable(
   },
 );
 
-export type Projects = typeof projects.$inferSelect;
+export type Project = typeof projects_table.$inferSelect;
