@@ -44,7 +44,7 @@ export default async function Home() {
           <div className="ml-auto flex items-center space-x-4">
             <ModeToggle />
             <SignedOut>
-              <SignInButton />
+              <SignInButton oauthFlow="redirect" />
             </SignedOut>
             <SignedIn>
               <Link href="/dashboard">

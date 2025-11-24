@@ -1,6 +1,5 @@
-"use client";
 import Link from "next/link";
-import { ArrowUpRight, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Plus } from "lucide-react";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -20,34 +19,24 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Badge } from "~/components/ui/badge";
-import { api } from "~/trpc/react";
+import { api } from "~/trpc/server";
 
-export function ProjectsList() {
-  const projects = api.project.getProjects.useQuery();
+export async function ProjectsList() {
+  const projects = await api.project.getProjects();
 
   return (
-    <div className="space-y-6">
-      {/* <div className="flex flex-col justify-between gap-4 sm:flex-row">
-        <div className="relative w-full sm:w-64">
-          <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
-          <Input
-            type="search"
-            placeholder="Search projects..."
-            className="pl-8"
-            value={searchQuery}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchQuery(e.currentTarget.value)
-            }
-          />
-        </div>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" />
-          New Project
-        </Button>
-      </div> */}
-
+    <div className="p-6">
+      <div className="flex items-start justify-between overflow-auto">
+        <h1 className="mb-6 text-2xl font-bold">Projects</h1>
+        <Link href={"/dashboard/new"} prefetch>
+          <Button className="cursor-pointer gap-2">
+            <Plus className="h-4 w-4" />
+            New Project
+          </Button>
+        </Link>
+      </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.data?.map((project) => (
+        {projects.map((project) => (
           <Link
             key={project.publicId}
             href={`/dashboard/${project.publicId}`}
@@ -107,14 +96,6 @@ export function ProjectsList() {
                 </div>
               </div> */}
               </CardContent>
-              {/* <CardFooter className="pt-2">
-                <Link href={`/dashboard/${project.id}`} passHref>
-                  <Button variant="outline" className="w-full gap-2">
-                    View Dashboard
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </CardFooter> */}
             </Card>
           </Link>
         ))}

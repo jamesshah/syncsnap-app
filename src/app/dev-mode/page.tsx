@@ -1,4 +1,5 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { Button } from "~/components/ui/button";
 import { mockProjects } from "~/lib/mock-data";
 import { db } from "~/server/db";
 import { projects_table } from "~/server/db/schema";
@@ -26,7 +27,7 @@ export default function DevMode() {
             .values(mockProjects.map((_p) => ({ ..._p, userId: user.userId })));
         }}
       >
-        <button type="submit">Populate Insert projects</button>
+        <Button type="submit">Populate Insert projects</Button>
       </form>
     </div>
   );

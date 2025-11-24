@@ -9,7 +9,6 @@ import {
   Users,
   CreditCard,
   HelpCircle,
-  Code,
   Key,
   Bell,
 } from "lucide-react";
@@ -22,15 +21,6 @@ export function DashboardSidebar() {
   return (
     <div className="bg-background hidden md:block md:w-64">
       <div className="flex h-full flex-col">
-        <div className="flex h-14 items-center px-4">
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-2 font-semibold"
-          >
-            <Code className="h-6 w-6" />
-            <span>SyncSnap</span>
-          </Link>
-        </div>
         {/* <ScrollArea className="flex-1 py-2"> */}
         <nav className="grid gap-1 px-2 py-6">
           <Link
@@ -119,7 +109,7 @@ export function DashboardSidebar() {
           </Link>
         </nav>
         {/* </ScrollArea> */}
-        <div className="mt-auto border-t p-4">
+        {/* <div className="mt-auto border-t p-4">
           <div className="mt-4 grid gap-1">
             <Link
               href="/help"
@@ -129,7 +119,7 @@ export function DashboardSidebar() {
               Help & Support
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
