@@ -19,6 +19,18 @@ export function UploadForm({ jobId }: UploadFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [uploaded, setUploaded] = useState(false);
 
+  async function updateJobStatus(status: "completed" | "failed") {
+    try {
+      await fetch(`/api/jobs/${encodeURIComponent(jobId)}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+    } catch {
+      // Best-effort: don't block user on status update failure
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!file) return;
@@ -39,14 +51,19 @@ export function UploadForm({ jobId }: UploadFormProps) {
       const data = (await res.json()) as { error?: string } | PresignedResponse;
 
       if (!res.ok) {
-        setError(
-          (data as { error?: string }).error ?? "Failed to get upload URL"
-        );
+        await updateJobStatus("failed");
+        if (res.status === 400) {
+          setError((data as { error?: string })?.error ?? "Invalid or expired job");
+        } else {          
+          setError((data as { error?: string })?.error ?? "Something went wrong. Please try again.");
+        }
+        setFile(null);
         return;
       }
 
       const { url } = data as PresignedResponse;
       if (!url) {
+        await updateJobStatus("failed");
         setError("Invalid response from server");
         return;
       }
@@ -61,13 +78,16 @@ export function UploadForm({ jobId }: UploadFormProps) {
       });
 
       if (!putRes.ok) {
+        await updateJobStatus("failed");
         setError("Upload to storage failed. Please try again.");
         return;
       }
 
+      await updateJobStatus("completed");
       setUploaded(true);
       setFile(null);
     } catch {
+      await updateJobStatus("failed");
       setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);

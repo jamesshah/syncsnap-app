@@ -48,6 +48,12 @@ export async function POST(request: Request) {
         { status: 404 }
       );
     }
+    if (res.status === 400) {
+      return NextResponse.json(
+        { error: data?.error ?? "Invalid or expired job" },
+        { status: 400 }
+      );
+    }
     return NextResponse.json(
       { error: data?.error ?? "Failed to get upload URL" },
       { status: res.status }
