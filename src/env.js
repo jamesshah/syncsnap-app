@@ -10,6 +10,10 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    SYNCSNAP_API_URL: z
+      .string()
+      .url()
+      .default("http://localhost:3001/api/v1"),
     SINGLESTORE_DB: z.string(),
     SINGLESTORE_HOST: z.string(),
     SINGLESTORE_PORT: z.string(),
@@ -33,6 +37,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    SYNCSNAP_API_URL: process.env.SYNCSNAP_API_URL,
     SINGLESTORE_DB: process.env.SINGLESTORE_DB,
     SINGLESTORE_HOST: process.env.SINGLESTORE_HOST,
     SINGLESTORE_PORT: process.env.SINGLESTORE_PORT,
