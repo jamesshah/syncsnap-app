@@ -11,4 +11,3 @@ Todo:
 - [x] Projects creation page
 - [x] Setup CD
 - [ ] Project Details View
-- [ ] Setup CI with Github Actions
