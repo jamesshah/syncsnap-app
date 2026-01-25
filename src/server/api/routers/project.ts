@@ -15,29 +15,35 @@ export const projectRouter = createTRPCRouter({
       .where(eq(projects_table.userId, userId));
   }),
 
-  getProjectById: protectedProcedure
-    .input(z.string())
-    .query<Project | null>(async ({ ctx, input }) => {
-      const projectId = input;
-      const userId = ctx.auth.userId;
+  getProject: protectedProcedure
+    .input(
+      z.object({
+        publicId: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { userId } = ctx.auth;
+      const { publicId } = input;
 
       const project = await ctx.db
         .select()
         .from(projects_table)
         .where(
           and(
-            eq(projects_table.publicId, projectId),
+            eq(projects_table.publicId, publicId),
             eq(projects_table.userId, userId),
           ),
         )
-        .limit(1)
-        .then((rows) => rows[0]);
+        .limit(1);
 
-      if (!project) {
-        return null;
+      if (!project[0]) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Project not found",
+        });
       }
 
-      return project;
+      return project[0];
     }),
 
   createProject: protectedProcedure

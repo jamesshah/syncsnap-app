@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "~/components/ui/button";
 
-export default async function ProjectDetailsPage({
+export default async function ProjectFilesPage({
   params,
 }: {
   params: Promise<{ projectId: string }>;
@@ -22,7 +22,7 @@ export default async function ProjectDetailsPage({
   let project;
   try {
     project = await api.project.getProject({ publicId: projectId });
-  } catch (error) {
+  } catch {
     return notFound();
   }
 
@@ -47,10 +47,9 @@ export default async function ProjectDetailsPage({
               </div>
             </div>
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Project Overview</h2>
+              <h2 className="text-xl font-semibold">Files</h2>
               <p className="text-muted-foreground">
-                Welcome to your project overview. Here you can see project
-                statistics and recent activity.
+                Manage and view all files uploaded to this project.
               </p>
             </div>
           </div>
