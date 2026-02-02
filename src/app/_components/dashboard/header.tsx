@@ -1,12 +1,14 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import { Bell, Menu } from "lucide-react";
+import { HelpCircle, Menu } from "lucide-react";
+import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { dashboardNavItems, getProjectNavItems } from "./nav-items";
 import { MobileSidebar } from "./mobile-sidebar";
+import { ModeToggle } from "../theme-toggle";
 
 export function DashboardHeader() {
   const pathname = usePathname();
@@ -47,11 +49,17 @@ export function DashboardHeader() {
           </SheetContent>
         </Sheet>
         <div className="flex flex-1 items-center justify-end gap-2 sm:gap-4">
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            <span className="sr-only">Notifications</span>
-            <span className="bg-primary absolute top-1 right-1 flex h-2 w-2 rounded-full"></span>
-          </Button>
+          {/* <Link href="/docs">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative cursor-pointer"
+            >
+              <HelpCircle className="text-muted-foreground h-5 w-5" />
+              <span className="text-muted-foreground text-sm">Docs</span>
+            </Button>
+          </Link> */}
+          <ModeToggle />
           <UserButton />
         </div>
       </header>
