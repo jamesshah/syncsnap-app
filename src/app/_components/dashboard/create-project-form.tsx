@@ -26,16 +26,8 @@ import { Badge } from "@/components/ui/badge";
 import { Globe, Info } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ProjectErrorAlert } from "@/components/project-error-alert";
+import { regions } from "~/lib/regions";
 import { api } from "~/trpc/react";
-
-const regions = [
-  { value: "us-east-1", label: "US East (N. Virginia)", flag: "🇺🇸" },
-  { value: "us-west-2", label: "US West (Oregon)", flag: "🇺🇸" },
-  { value: "eu-west-1", label: "Europe (Ireland)", flag: "🇪🇺" },
-  { value: "eu-central-1", label: "Europe (Frankfurt)", flag: "🇪🇺" },
-  { value: "ap-southeast-1", label: "Asia Pacific (Singapore)", flag: "🇸🇬" },
-  { value: "ap-northeast-1", label: "Asia Pacific (Tokyo)", flag: "🇯🇵" },
-];
 
 export function CreateProjectForm() {
   const router = useRouter();
