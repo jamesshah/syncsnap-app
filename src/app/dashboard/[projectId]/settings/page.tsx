@@ -6,6 +6,7 @@ import { api } from "~/trpc/server";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "~/components/ui/button";
+import { ProjectSettingsForm } from "@/_components/dashboard/project-settings-form";
 
 export default async function ProjectSettingsPage({
   params,
@@ -34,7 +35,11 @@ export default async function ProjectSettingsPage({
           <div className="container mx-auto max-w-7xl p-4 sm:p-6">
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Link href="/dashboard" prefetch>
-                <Button variant="outline" size="icon" className="shrink-0">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="shrink-0 cursor-pointer"
+                >
                   <ArrowLeft className="h-4 w-4" />
                   <span className="sr-only">Back to Dashboard</span>
                 </Button>
@@ -46,11 +51,11 @@ export default async function ProjectSettingsPage({
                 </p>
               </div>
             </div>
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Settings</h2>
-              <p className="text-muted-foreground">
-                Configure project settings and preferences.
-              </p>
+            <div className="space-y-6">
+              <ProjectSettingsForm
+                projectId={projectId}
+                initialName={project.name}
+              />
             </div>
           </div>
         </div>
