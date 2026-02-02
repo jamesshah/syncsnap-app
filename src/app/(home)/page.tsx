@@ -1,4 +1,4 @@
-import { SignedOut, SignedIn, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -51,11 +51,11 @@ export default async function Home() {
           <div className="ml-auto flex items-center space-x-4">
             <ModeToggle />
             <SignedOut>
-              <SignInButton oauthFlow="redirect">
+              <Link href="/sign-in">
                 <Button variant="ghost" size="sm" className="cursor-pointer">
                   Sign In
                 </Button>
-              </SignInButton>
+              </Link>
             </SignedOut>
             <SignedIn>
               <Link href="/dashboard">
