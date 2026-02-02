@@ -75,7 +75,7 @@ export function CreateProjectForm() {
         <CardHeader>
           <CardTitle>Project Details</CardTitle>
           <CardDescription>
-            Provide basic information about your new API project.
+            Provide basic information about your new project.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -91,7 +91,7 @@ export function CreateProjectForm() {
               required
             />
             <p className="text-muted-foreground text-xs">
-              Choose a descriptive name for your API project.
+              Choose a descriptive name for your project.
             </p>
           </div>
 

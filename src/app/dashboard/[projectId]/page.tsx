@@ -34,7 +34,11 @@ export default async function ProjectDetailsPage({
           <div className="container mx-auto max-w-7xl p-4 sm:p-6">
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Link href="/dashboard" prefetch>
-                <Button variant="outline" size="icon" className="shrink-0">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="shrink-0 cursor-pointer"
+                >
                   <ArrowLeft className="h-4 w-4" />
                   <span className="sr-only">Back to Dashboard</span>
                 </Button>
@@ -52,6 +56,12 @@ export default async function ProjectDetailsPage({
                 Welcome to your project overview. Here you can see project
                 statistics and recent activity.
               </p>
+              <div className="border-primary/20 bg-primary/5 rounded-lg border border-dashed p-6">
+                <h3 className="mb-2 font-semibold">Analytics</h3>
+                <p className="text-muted-foreground text-sm">
+                  Analytics will be available soon.
+                </p>
+              </div>
             </div>
           </div>
         </div>
