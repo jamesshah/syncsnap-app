@@ -51,6 +51,7 @@ export function ProjectSettingsForm({
     onSuccess: () => {
       void utils.project.getProject.invalidate({ publicId: projectId });
       void utils.project.getProjects.invalidate();
+      router.refresh();
     },
   });
 
@@ -166,6 +167,7 @@ export function ProjectSettingsForm({
                 projectName.trim() === initialName ||
                 isUpdateLoading
               }
+              className="cursor-pointer"
             >
               {isUpdateLoading ? "Saving..." : "Save changes"}
             </Button>
@@ -186,6 +188,8 @@ export function ProjectSettingsForm({
             <Button
               type="button"
               variant="destructive"
+              className="cursor-pointer"
+              disabled={deleteMutation.isPending}
               onClick={() => setDeleteDialogOpen(true)}
             >
               Delete project

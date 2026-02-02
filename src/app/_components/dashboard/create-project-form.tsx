@@ -128,6 +128,7 @@ export function CreateProjectForm() {
           <Button
             type="button"
             variant="outline"
+            className="cursor-pointer"
             onClick={() => router.push("/dashboard")}
             disabled={createMutation.isPending}
           >
@@ -136,6 +137,7 @@ export function CreateProjectForm() {
           <Button
             type="submit"
             disabled={!projectName.trim() || createMutation.isPending}
+            className="cursor-pointer"
           >
             {createMutation.isPending
               ? "Creating Project..."
