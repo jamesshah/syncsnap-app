@@ -10,10 +10,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
-    SYNCSNAP_API_URL: z
-      .string()
-      .url()
-      .default("http://localhost:3001/api/v1"),
+    SYNCSNAP_API_URL: z.string().url().default("http://localhost:3001/api/v1"),
     SINGLESTORE_DB: z.string(),
     SINGLESTORE_HOST: z.string(),
     SINGLESTORE_PORT: z.string(),
@@ -29,6 +26,9 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: z.string(),
   },
 
   /**
@@ -46,6 +46,11 @@ export const env = createEnv({
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
+    NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL:
+      process.env.NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL,
+    NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL:
+      process.env.NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
