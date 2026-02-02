@@ -1,6 +1,8 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+
+const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/"]);
 
 function uploadSubdomainRewrite(request: NextRequest) {
   const hostname = request.headers.get("host") ?? request.nextUrl.hostname;
@@ -14,9 +16,10 @@ function uploadSubdomainRewrite(request: NextRequest) {
   return null;
 }
 
-export default clerkMiddleware((_auth, request: NextRequest) => {
+export default clerkMiddleware(async (_auth, request) => {
   const rewrite = uploadSubdomainRewrite(request);
   if (rewrite) return rewrite;
+  if (!isPublicRoute(request)) await _auth.protect();
 });
 
 export const config = {
