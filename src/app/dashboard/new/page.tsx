@@ -1,4 +1,5 @@
 import { CreateProjectForm } from "@/_components/dashboard/create-project-form";
+import { DashboardHeader } from "@/_components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import { auth } from "@clerk/nextjs/server";
 import { ArrowLeft } from "lucide-react";

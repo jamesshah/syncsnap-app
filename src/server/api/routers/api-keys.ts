@@ -91,25 +91,7 @@ export const apiKeysRouter = createTRPCRouter({
         });
       }
 
-      const secretKey = `sk_live_${nanoid(32)}`;
-
-      console.log("secretKey", secretKey);
-
-      // Derive a 32-byte key from the encryption key using SHA-256 (AES-256 requires 32 bytes)
-      const encryptionKey = createHash("sha256")
-        .update(String(env.ENCRYPTION_KEY))
-        .digest();
-      // Generate a random 16-byte IV for AES-256-GCM
-      const iv = randomBytes(16);
-
-      const cipher = createCipheriv("aes-256-gcm", encryptionKey, iv);
-      let encryptedSecretKey = cipher.update(secretKey, "utf8", "base64");
-      encryptedSecretKey += cipher.final("base64");
-      const authTag = cipher.getAuthTag();
-
-      // Store as: iv:encryptedData:authTag (all base64 encoded)
-      const encryptedData = `${iv.toString("base64")}:${encryptedSecretKey}:${authTag.toString("base64")}`;
-
+      const { encryptedData } = createAndEncryptApiKey();
       const newApiKeyId = nanoid(10);
 
       // create a new api key
@@ -151,4 +133,128 @@ export const apiKeysRouter = createTRPCRouter({
         };
       });
     }),
+
+  rollApiKey: protectedProcedure
+    .input(
+      z.object({
+        apiKeyId: z.string(),
+        projectId: z.string(),
+      }),
+    )
+    .mutation<string>(async ({ ctx, input }) => {
+      const { userId } = ctx.auth;
+
+      const project = await ctx.db
+        .select()
+        .from(projects_table)
+        .where(
+          and(
+            eq(projects_table.userId, userId),
+            eq(projects_table.publicId, input.projectId),
+          ),
+        );
+
+      if (!project || project.length === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Project not found",
+        });
+      }
+
+      const [existingKey] = await ctx.db
+        .select()
+        .from(api_keys_table)
+        .where(
+          and(
+            eq(api_keys_table.id, input.apiKeyId),
+            eq(api_keys_table.projectId, input.projectId),
+            eq(api_keys_table.isDeleted, false),
+          ),
+        );
+
+      if (!existingKey) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "API key not found",
+        });
+      }
+
+      const { secretKey, encryptedData } = createAndEncryptApiKey();
+
+      await ctx.db
+        .update(api_keys_table)
+        .set({
+          privateKey: encryptedData,
+          updatedAt: new Date(),
+        })
+        .where(eq(api_keys_table.id, input.apiKeyId));
+
+      return secretKey;
+    }),
+
+  deleteApiKey: protectedProcedure
+    .input(
+      z.object({
+        apiKeyId: z.string(),
+        projectId: z.string(),
+      }),
+    )
+    .mutation<void>(async ({ ctx, input }) => {
+      const { userId } = ctx.auth;
+
+      const project = await ctx.db
+        .select()
+        .from(projects_table)
+        .where(
+          and(
+            eq(projects_table.userId, userId),
+            eq(projects_table.publicId, input.projectId),
+          ),
+        );
+
+      if (!project || project.length === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Project not found",
+        });
+      }
+
+      await ctx.db
+        .update(api_keys_table)
+        .set({
+          isDeleted: true,
+          updatedAt: new Date(),
+        })
+        .where(
+          and(
+            eq(api_keys_table.id, input.apiKeyId),
+            eq(api_keys_table.projectId, input.projectId),
+          ),
+        );
+    }),
 });
+
+/**
+ * Creates a new API key and encrypts it for storage.
+ * @returns Object with the plain secret key (for one-time display) and encrypted data (for DB storage)
+ */
+function createAndEncryptApiKey(): {
+  secretKey: string;
+  encryptedData: string;
+} {
+  const secretKey = `sk_live_${nanoid(32)}`;
+
+  const encryptionKey = createHash("sha256")
+    .update(String(env.ENCRYPTION_KEY))
+    .digest();
+  const iv = randomBytes(16);
+
+  const cipher = createCipheriv("aes-256-gcm", encryptionKey, iv);
+  let encryptedSecretKey = cipher.update(secretKey, "utf8", "base64");
+  encryptedSecretKey += cipher.final("base64");
+  const authTag = cipher.getAuthTag();
+
+  const encryptedData = `${iv.toString("base64")}:${encryptedSecretKey}:${authTag.toString("base64")}`;
+
+  return { secretKey, encryptedData };
+}

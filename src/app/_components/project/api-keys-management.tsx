@@ -4,32 +4,37 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { CreateApiKeyForm } from "~/app/_components/project/create-api-key-form";
-import { ApiKeysList } from "~/app/_components/project/api-keys-list";
 
-export function ApiKeysManagement({ projectId }: { projectId: string }) {
+interface ApiKeysManagementProps {
+  projectId: string;
+  children: React.ReactNode;
+}
+
+export function ApiKeysManagement({
+  projectId,
+  children,
+}: ApiKeysManagementProps) {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
 
   return (
     <>
-      <div className="flex-1 overflow-auto">
-        <div className="space-y-6">
-          <div className="flex items-start justify-between overflow-auto p-6">
-            <div>
-              <h1 className="text-2xl font-bold">API Keys</h1>
-              <p className="text-muted-foreground">
-                View and manage API keys for your project.
-              </p>
-            </div>
-            <Button
-              className="cursor-pointer gap-2"
-              onClick={() => setShowCreateDialog(true)}
-            >
-              <Plus className="h-4 w-4" />
-              New API Key
-            </Button>
+      <div className="space-y-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h2 className="text-xl font-semibold">API Keys</h2>
+            <p className="text-muted-foreground">
+              View and manage API keys for your project.
+            </p>
           </div>
-          <ApiKeysList projectId={projectId} />
+          <Button
+            className="shrink-0 cursor-pointer gap-2"
+            onClick={() => setShowCreateDialog(true)}
+          >
+            <Plus className="h-4 w-4" />
+            New API Key
+          </Button>
         </div>
+        {children}
       </div>
 
       <CreateApiKeyForm

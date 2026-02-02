@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { projects_table, type Project } from "~/server/db/schema";
 import { nanoid } from "nanoid";
+import { TRPCError } from "@trpc/server";
 
 export const projectRouter = createTRPCRouter({
   getProjects: protectedProcedure.query<Project[]>(({ ctx }) => {

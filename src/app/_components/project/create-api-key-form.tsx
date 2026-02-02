@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -27,11 +28,12 @@ export function CreateApiKeyForm({
   const [keyName, setKeyName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
 
+  const router = useRouter();
   const utils = api.useUtils();
   const { mutateAsync } = api.apiKeys.createApiKey.useMutation({
     onSuccess: () => {
-      // Invalidate and refetch the API keys list
       void utils.apiKeys.getApiKeysByProjectId.invalidate(projectId);
+      router.refresh();
     },
   });
 
