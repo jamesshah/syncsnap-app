@@ -28,7 +28,7 @@ export function DashboardSidebar({
   return (
     <div className="bg-background hidden md:block md:w-64 md:border-r">
       <div className="flex h-full flex-col">
-        <div className="flex h-14 items-center px-4 border-b">
+        <div className="flex h-14 items-center border-b px-4">
           <Link
             href={homeHref}
             className="flex items-center gap-2 font-semibold"
@@ -44,7 +44,7 @@ export function DashboardSidebar({
               // Highlight active route based on exact match
               // This ensures precise highlighting: each route only highlights when exactly on that route
               const isActive = pathname === item.href;
-              
+
               return (
                 <Link
                   key={item.href}

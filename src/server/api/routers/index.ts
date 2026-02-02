@@ -1,3 +1,3 @@
 import { projectRouter } from "./project";
-
-export { projectRouter };
+import { apiKeysRouter } from "./api-keys";
+export { projectRouter, apiKeysRouter };

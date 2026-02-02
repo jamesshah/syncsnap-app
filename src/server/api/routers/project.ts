@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { projects_table, type Project } from "~/server/db/schema";
@@ -12,6 +12,7 @@ export const projectRouter = createTRPCRouter({
     return ctx.db
       .select()
       .from(projects_table)
+      .orderBy(desc(projects_table.createdAt))
       .where(eq(projects_table.userId, userId));
   }),
 

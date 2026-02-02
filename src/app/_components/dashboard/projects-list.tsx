@@ -1,18 +1,15 @@
-"use client";
 import Link from "next/link";
-
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
-import { api } from "~/trpc/react";
+import { api } from "~/trpc/server";
 
-export function ProjectsList() {
-  const projects = api.project.getProjects.useQuery();
-
-  const hasProjects = (projects.data?.length ?? 0) > 0;
+export async function ProjectsList() {
+  const projects = await api.project.getProjects();
+  const hasProjects = projects.length > 0;
 
   return (
     <div className="space-y-6">
-      {!hasProjects && !projects.isLoading && (
+      {!hasProjects && (
         <div className="text-muted-foreground rounded-lg border border-dashed p-12 text-center">
           <p className="text-lg font-medium">No projects yet</p>
           <p className="mt-1 text-sm">
@@ -22,7 +19,7 @@ export function ProjectsList() {
       )}
       {hasProjects && (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.data?.map((project) => (
+          {projects.map((project) => (
             <Link
               key={project.publicId}
               href={`/dashboard/${project.publicId}`}
