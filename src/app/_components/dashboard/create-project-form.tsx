@@ -25,6 +25,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Globe, Info } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { ProjectErrorAlert } from "@/components/project-error-alert";
 import { api } from "~/trpc/react";
 
 const regions = [
@@ -40,9 +41,13 @@ export function CreateProjectForm() {
   const router = useRouter();
   const [projectName, setProjectName] = useState("");
   const [selectedRegion] = useState("us-east-1");
-  const [isLoading, setIsLoading] = useState(false);
 
-  const { mutateAsync, error } = api.project.createProject.useMutation();
+  const createMutation = api.project.createProject.useMutation({
+    onSuccess: (publicId) => {
+      router.push(`/dashboard/${publicId}`);
+      router.refresh();
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,18 +56,7 @@ export function CreateProjectForm() {
       return;
     }
 
-    setIsLoading(true);
-
-    await mutateAsync({ name: projectName });
-
-    setIsLoading(false);
-
-    // Redirect to new only created project once project_details view is available
-    if (!error) {
-      router.push("/dashboard");
-    } else {
-      console.error(error);
-    }
+    await createMutation.mutateAsync({ name: projectName.trim() });
   };
 
   const selectedRegionData = regions.find(
@@ -79,6 +73,10 @@ export function CreateProjectForm() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
+          <ProjectErrorAlert
+            error={createMutation.error}
+            onDismiss={() => createMutation.reset()}
+          />
           <div className="space-y-2">
             <Label htmlFor="project-name">Project Name *</Label>
             <Input
@@ -139,12 +137,17 @@ export function CreateProjectForm() {
             type="button"
             variant="outline"
             onClick={() => router.push("/dashboard")}
-            disabled={isLoading}
+            disabled={createMutation.isPending}
           >
             Cancel
           </Button>
-          <Button type="submit" disabled={!projectName.trim() || isLoading}>
-            {isLoading ? "Creating Project..." : "Create Project"}
+          <Button
+            type="submit"
+            disabled={!projectName.trim() || createMutation.isPending}
+          >
+            {createMutation.isPending
+              ? "Creating Project..."
+              : "Create Project"}
           </Button>
         </CardFooter>
       </Card>
