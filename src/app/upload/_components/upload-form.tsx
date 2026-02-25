@@ -4,7 +4,13 @@ import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 
 interface UploadFormProps {
@@ -45,7 +51,7 @@ export function UploadForm({ jobId }: UploadFormProps) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ file_name: file.name }),
-        }
+        },
       );
 
       const data = (await res.json()) as { error?: string } | PresignedResponse;
@@ -53,9 +59,14 @@ export function UploadForm({ jobId }: UploadFormProps) {
       if (!res.ok) {
         await updateJobStatus("failed");
         if (res.status === 400) {
-          setError((data as { error?: string })?.error ?? "Invalid or expired job");
-        } else {          
-          setError((data as { error?: string })?.error ?? "Something went wrong. Please try again.");
+          setError(
+            (data as { error?: string })?.error ?? "Invalid or expired job",
+          );
+        } else {
+          setError(
+            (data as { error?: string })?.error ??
+              "Something went wrong. Please try again.",
+          );
         }
         setFile(null);
         return;
@@ -111,9 +122,7 @@ export function UploadForm({ jobId }: UploadFormProps) {
     <Card className="w-full max-w-md">
       <CardHeader>
         <CardTitle>Upload your file</CardTitle>
-        <CardDescription>
-          Choose a file and submit.
-        </CardDescription>
+        <CardDescription>Choose a file and submit.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {error && (
