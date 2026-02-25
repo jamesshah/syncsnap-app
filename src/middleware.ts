@@ -2,7 +2,16 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/", "/docs(.*)"]);
+const isPublicRoute = createRouteMatcher([
+  "/sign-in(.*)",
+  "/",
+  "/terms(.*)",
+  "/privacy(.*)",
+  "/docs(.*)",
+  "/upload(.*)",
+  "/api/upload(.*)",
+  "/api/jobs(.*)",
+]);
 
 function uploadSubdomainRewrite(request: NextRequest) {
   const hostname = request.headers.get("host") ?? request.nextUrl.hostname;

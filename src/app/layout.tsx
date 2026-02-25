@@ -9,7 +9,7 @@ import { ThemeProvider } from "./_components/theme-provider";
 
 export const metadata: Metadata = {
   title: "SyncSnap",
-  description: "SyncSnap - Seamless Cross-Device File Upload Service"
+  description: "SyncSnap - Seamless Cross-Device File Upload Service",
 };
 
 const geist = Geist({
@@ -21,7 +21,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        layout: {
+          termsPageUrl: "/terms",
+          privacyPageUrl: "/privacy",
+        },
+      }}
+    >
       <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
         <body>
           <TRPCReactProvider>
