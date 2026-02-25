@@ -26,19 +26,21 @@ export function DashboardSidebar({
   const pathname = usePathname();
 
   return (
-    <div className="bg-background hidden md:block md:w-64 md:border-r">
+    <div className="bg-background/60 hidden md:block md:w-64">
       <div className="flex h-full flex-col">
-        <div className="flex h-14 items-center border-b px-4">
+        <div className="flex h-14 items-center px-4">
           <Link
             href={homeHref}
-            className="flex items-center gap-2 font-semibold"
+            className="flex items-center gap-2 text-sm font-semibold tracking-tight"
           >
-            <Code className="h-6 w-6" />
+            <span className="flex h-7 w-7 items-center justify-center rounded-md border border-sky-500/25 bg-sky-500/10">
+              <Code className="h-4 w-4 text-sky-500" />
+            </span>
             <span>{homeLabel}</span>
           </Link>
         </div>
-        <nav className="flex-1 overflow-y-auto px-2 py-4">
-          <div className="grid gap-1">
+        <nav className="flex-1 overflow-y-auto px-3 py-4">
+          <div className="grid gap-1.5">
             {navItems.map((item) => {
               const Icon = item.icon;
               // Highlight active route based on exact match
@@ -50,10 +52,10 @@ export function DashboardSidebar({
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
                     isActive
-                      ? "bg-accent text-accent-foreground font-semibold"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                      ? "bg-sky-500/10 text-foreground shadow-sm ring-1 ring-sky-500/25"
+                      : "text-muted-foreground hover:bg-accent/60 hover:text-accent-foreground hover:-translate-y-0.5",
                   )}
                 >
                   <Icon className="h-4 w-4 shrink-0" />
@@ -63,10 +65,10 @@ export function DashboardSidebar({
             })}
           </div>
         </nav>
-        <div className="border-t p-4">
+        <div className="p-4">
           <Link
             href="/help"
-            className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+            className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
           >
             <HelpCircle className="h-4 w-4 shrink-0" />
             <span>Help & Support</span>
