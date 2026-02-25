@@ -107,9 +107,11 @@ export function UploadForm({ jobId }: UploadFormProps) {
 
   if (uploaded) {
     return (
-      <Card className="w-full max-w-md">
+      <Card className="border-border/70 bg-card/80 w-full max-w-md shadow-sm">
         <CardHeader>
-          <CardTitle>Upload complete 🎉</CardTitle>
+          <CardTitle className="text-lg font-semibold">
+            Upload complete 🎉
+          </CardTitle>
           <CardDescription>
             Your file has been uploaded. You may close this page.
           </CardDescription>
@@ -119,7 +121,7 @@ export function UploadForm({ jobId }: UploadFormProps) {
   }
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="border-border/70 bg-card/80 w-full max-w-md shadow-sm">
       <CardHeader>
         <CardTitle>Upload your file</CardTitle>
         <CardDescription>Choose a file and submit.</CardDescription>
@@ -150,7 +152,7 @@ export function UploadForm({ jobId }: UploadFormProps) {
             type="submit"
             disabled={!file || isLoading}
             size="lg"
-            className="w-full"
+            className="w-full cursor-pointer bg-sky-600 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-700 disabled:hover:translate-y-0"
           >
             {isLoading ? "Uploading…" : "Submit"}
           </Button>

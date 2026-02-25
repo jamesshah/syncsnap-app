@@ -90,7 +90,7 @@ export default async function DashboardSettingsPage() {
                     <span>{email.emailAddress}</span>
                     <div className="flex flex-wrap gap-1.5">
                       {email.id === primaryEmailId && (
-                        <Badge variant="destructive">Primary</Badge>
+                        <Badge className="bg-sky-600 text-white">Primary</Badge>
                       )}
                       {email.linkedTo?.map((link) => (
                         <Badge
