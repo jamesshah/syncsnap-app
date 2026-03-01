@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type LucideIcon, Code, HelpCircle } from "lucide-react";
+import { type LucideIcon, HelpCircle } from "lucide-react";
 
 import { cn } from "~/lib/utils";
 
@@ -21,7 +21,7 @@ interface DashboardSidebarProps {
 export function DashboardSidebar({
   navItems,
   homeHref = "/dashboard",
-  homeLabel = "SyncSnap",
+  homeLabel = "syncsnap",
 }: DashboardSidebarProps) {
   const pathname = usePathname();
 
@@ -31,10 +31,9 @@ export function DashboardSidebar({
         <div className="flex h-14 items-center border-b px-4">
           <Link
             href={homeHref}
-            className="flex items-center gap-2 font-semibold"
+            className="text-md font-semibold tracking-tight transition-colors duration-200 hover:text-sky-500"
           >
-            <Code className="h-6 w-6" />
-            <span>{homeLabel}</span>
+            {homeLabel}
           </Link>
         </div>
         <nav className="flex-1 overflow-y-auto px-2 py-4">
@@ -65,7 +64,7 @@ export function DashboardSidebar({
         </nav>
         <div className="border-t p-4">
           <Link
-            href="/help"
+            href="mailto:hello@syncsnap.xyz?subject=Need%20Help%20With%20SyncSnap%3F"
             className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors"
           >
             <HelpCircle className="h-4 w-4 shrink-0" />

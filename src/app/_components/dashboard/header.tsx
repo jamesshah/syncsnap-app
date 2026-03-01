@@ -44,7 +44,7 @@ export function DashboardHeader() {
             <MobileSidebar
               navItems={navItems}
               homeHref={homeHref}
-              homeLabel="SyncSnap"
+              homeLabel="syncsnap"
             />
           </SheetContent>
         </Sheet>
