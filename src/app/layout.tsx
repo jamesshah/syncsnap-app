@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     title: "SyncSnap",
     description: "SyncSnap - Seamless Cross-Device File Upload Service",
     images: ["/og-image.png"],
+    url: "https://syncsnap.xyz",
+    siteName: "SyncSnap",
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
