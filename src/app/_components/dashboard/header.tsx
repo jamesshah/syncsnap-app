@@ -1,7 +1,8 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import { Menu } from "lucide-react";
+import { HelpCircle, Menu } from "lucide-react";
+import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import { usePathname } from "next/navigation";
@@ -12,6 +13,7 @@ import { ModeToggle } from "../theme-toggle";
 export function DashboardHeader() {
   const pathname = usePathname();
 
+  // Determine which nav items to show in mobile menu
   const projectIdMatch = /^\/dashboard\/([^/]+)/.exec(pathname);
   const projectId = projectIdMatch?.[1];
   const isProjectPage =
@@ -29,15 +31,11 @@ export function DashboardHeader() {
     isProjectPage && projectId ? `/dashboard/${projectId}` : "/dashboard";
 
   return (
-    <div className="sticky top-0 z-40 mx-auto w-full 2xl:max-w-[1440px] 2xl:px-[min(4rem,calc((100vw-1440px)/2))]">
-      <header className="bg-background/80 supports-[backdrop-filter]:bg-background/50 flex h-14 items-center gap-4 px-4 backdrop-blur-xl sm:px-6">
+    <div className="sticky top-0 z-50 mx-auto w-full 2xl:max-w-[1440px] 2xl:px-[min(4rem,calc((100vw-1440px)/2))]">
+      <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 flex h-14 items-center gap-4 border-b px-4 backdrop-blur sm:px-6">
         <Sheet>
           <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="cursor-pointer rounded-full md:hidden"
-            >
+            <Button variant="ghost" size="icon" className="md:hidden">
               <Menu className="h-5 w-5" />
               <span className="sr-only">Toggle Menu</span>
             </Button>
@@ -50,8 +48,17 @@ export function DashboardHeader() {
             />
           </SheetContent>
         </Sheet>
-
-        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+        <div className="flex flex-1 items-center justify-end gap-2 sm:gap-4">
+          {/* <Link href="/docs">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative cursor-pointer"
+            >
+              <HelpCircle className="text-muted-foreground h-5 w-5" />
+              <span className="text-muted-foreground text-sm">Docs</span>
+            </Button>
+          </Link> */}
           <ModeToggle />
           <UserButton />
         </div>

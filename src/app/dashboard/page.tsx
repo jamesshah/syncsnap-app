@@ -25,7 +25,7 @@ export default async function DashboardPage() {
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <h1 className="text-2xl font-bold">Projects</h1>
               <Link href={"/dashboard/new"} prefetch>
-                <Button className="w-full cursor-pointer gap-2 bg-sky-600 text-white hover:bg-sky-700 sm:w-auto">
+                <Button className="w-full cursor-pointer gap-2 sm:w-auto">
                   <Plus className="h-4 w-4" />
                   New Project
                 </Button>
