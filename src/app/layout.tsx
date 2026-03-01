@@ -9,7 +9,30 @@ import { ThemeProvider } from "./_components/theme-provider";
 
 export const metadata: Metadata = {
   title: "SyncSnap",
-  description: "SyncSnap - Seamless Cross-Device File Upload Service",
+  description: "Seamless Cross-Device File Upload Service",
+  keywords: [
+    "SyncSnap",
+    "Cross-Device File Upload",
+    "File Upload",
+    "File Transfer",
+  ],
+  authors: [{ name: "James Shah", url: "https://github.com/jamesshah" }],
+  creator: "James Shah",
+  publisher: "James Shah",
+  category: "technology",
+  applicationName: "SyncSnap",
+  robots: "index, follow",
+  openGraph: {
+    title: "SyncSnap",
+    description: "SyncSnap - Seamless Cross-Device File Upload Service",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SyncSnap",
+    description: "Seamless Cross-Device File Upload Service",
+    images: ["/og-image.png"],
+  },
 };
 
 const geist = Geist({
