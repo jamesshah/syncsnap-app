@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { Code, Github, Linkedin } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { ModeToggle } from "../_components/theme-toggle";
+import { SiteFooter } from "../_components/marketing/site-footer";
+import { SiteNavbar } from "../_components/marketing/site-navbar";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | SyncSnap",
@@ -13,58 +11,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-clip">
-      <header className="sticky top-0 z-50 w-full">
-        <div className="container mx-auto px-4 pt-4 md:px-6">
-          <div className="bg-background/80 supports-[backdrop-filter]:bg-background/50 border-border/60 mx-auto flex h-12 max-w-3xl items-center gap-1 rounded-full border px-2 shadow-sm backdrop-blur-xl">
-            <Link href="/" className="flex items-center gap-2 pr-3 pl-2">
-              <Code className="h-4 w-4 text-sky-500" />
-              <span className="text-sm font-semibold tracking-tight">SyncSnap</span>
-            </Link>
-
-            <span className="bg-border/60 mx-1 hidden h-4 w-px md:block" />
-
-            <nav className="text-muted-foreground hidden items-center text-[13px] md:flex">
-              <Link
-                href="/#features"
-                className="hover:text-foreground rounded-full px-3 py-1.5 transition-colors duration-200"
-              >
-                Features
-              </Link>
-              <Link
-                href="/#pricing"
-                className="hover:text-foreground rounded-full px-3 py-1.5 transition-colors duration-200"
-              >
-                Pricing
-              </Link>
-            </nav>
-
-            <div className="ml-auto flex items-center gap-2.5">
-              <ModeToggle />
-              <SignedOut>
-                <Link href="/sign-in">
-                  <Button
-                    size="sm"
-                    className="h-8 cursor-pointer rounded-full bg-sky-600 px-4 text-xs text-white hover:bg-sky-700"
-                  >
-                    Sign in
-                  </Button>
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <Link href="/dashboard">
-                  <Button
-                    size="sm"
-                    className="h-8 cursor-pointer rounded-full bg-sky-600 px-4 text-xs text-white hover:bg-sky-700"
-                  >
-                    Dashboard
-                  </Button>
-                </Link>
-                <UserButton />
-              </SignedIn>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteNavbar />
 
       <main className="flex-1">
         <div className="container mx-auto max-w-3xl px-4 py-12 md:px-6 md:py-16">
@@ -120,47 +67,7 @@ export default function PrivacyPage() {
         </div>
       </main>
 
-      <footer className="bg-muted/30 mt-auto w-full border-t py-8">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-muted-foreground pr-3 text-sm">
-              © {new Date().getFullYear()} SyncSnap. All rights reserved.{" "}
-              <Link
-                href="/terms"
-                className="text-foreground pl-3 text-sm transition-colors hover:text-sky-600"
-              >
-                Terms
-              </Link>{" "}
-              <Link
-                href="/privacy"
-                className="text-foreground pl-3 text-sm transition-colors hover:text-sky-600"
-              >
-                Privacy
-              </Link>
-            </p>
-            <div className="flex items-center gap-6">
-              <a
-                href="https://linkedin.com/in/james-shah"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a
-                href="https://github.com/jamesshah/syncsnap"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

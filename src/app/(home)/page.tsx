@@ -1,12 +1,9 @@
-import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import {
   BarChart2,
   Check,
   Circle,
   Code,
-  Github,
-  Linkedin,
   Shield,
   Smartphone,
   Sparkles,
@@ -15,7 +12,8 @@ import {
 } from "lucide-react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
-import { ModeToggle } from "../_components/theme-toggle";
+import { SiteFooter } from "../_components/marketing/site-footer";
+import { SiteNavbar } from "../_components/marketing/site-navbar";
 
 const coreFeatures = [
   {
@@ -78,60 +76,7 @@ export default function Home() {
         <div className="absolute right-[-120px] bottom-20 h-[280px] w-[280px] rounded-full bg-violet-500/10 blur-3xl" />
       </div>
 
-      <header className="sticky top-0 z-50 w-full">
-        <div className="container mx-auto px-4 pt-4 md:px-6">
-          <div className="bg-background/80 supports-[backdrop-filter]:bg-background/50 border-border/60 mx-auto flex h-12 max-w-3xl items-center gap-1 rounded-full border px-2 shadow-sm backdrop-blur-xl">
-            <Link href="/" className="flex items-center gap-2 pr-3 pl-2">
-              <Code className="h-4 w-4 text-sky-500" />
-              <span className="text-sm font-semibold tracking-tight">
-                SyncSnap
-              </span>
-            </Link>
-
-            <span className="bg-border/60 mx-1 hidden h-4 w-px md:block" />
-
-            <nav className="text-muted-foreground hidden items-center text-[13px] md:flex">
-              <Link
-                href="#features"
-                className="hover:text-foreground rounded-full px-3 py-1.5 transition-colors duration-200"
-              >
-                Features
-              </Link>
-              <Link
-                href="#pricing"
-                className="hover:text-foreground rounded-full px-3 py-1.5 transition-colors duration-200"
-              >
-                Pricing
-              </Link>
-            </nav>
-
-            <div className="ml-auto flex items-center gap-2.5">
-              <ModeToggle />
-              <SignedOut>
-                <Link href="/sign-in">
-                  <Button
-                    size="sm"
-                    className="h-8 cursor-pointer rounded-full bg-sky-600 px-4 text-xs text-white hover:bg-sky-700"
-                  >
-                    Sign in
-                  </Button>
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <Link href="/dashboard">
-                  <Button
-                    size="sm"
-                    className="h-8 cursor-pointer rounded-full bg-sky-600 px-4 text-xs text-white hover:bg-sky-700"
-                  >
-                    Dashboard
-                  </Button>
-                </Link>
-                <UserButton />
-              </SignedIn>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteNavbar />
 
       <main className="flex-1">
         <section className="w-full py-14 md:py-20 lg:py-24">
@@ -142,7 +87,7 @@ export default function Home() {
                 className="w-fit rounded-full border-sky-500/30 bg-sky-500/10 px-3 py-1 text-sky-700 dark:text-sky-300 [&>svg]:size-2"
               >
                 <Circle className="fill-sky-500 text-sky-500" />
-                Built for modern product teams
+                Now in beta - Try it out for free
               </Badge>
               <div className="space-y-4">
                 <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
@@ -190,10 +135,10 @@ export default function Home() {
             </div>
 
             <div className="relative pl-10">
-              <div className="animate-timeline-line absolute left-[7px] top-3 bottom-3 w-px bg-border" />
+              <div className="animate-timeline-line bg-border absolute top-3 bottom-3 left-[7px] w-px" />
 
               <div className="animate-timeline-step-1 relative pb-8">
-                <span className="animate-timeline-dot-1 absolute -left-[33px] top-1 h-3.5 w-3.5 rounded-full bg-sky-500 ring-4 ring-sky-500/15" />
+                <span className="animate-timeline-dot-1 absolute top-1 -left-[33px] h-3.5 w-3.5 rounded-full bg-sky-500 ring-4 ring-sky-500/15" />
                 <p className="text-xs font-medium tracking-wide text-sky-700 uppercase dark:text-sky-300">
                   Step 01
                 </p>
@@ -204,24 +149,30 @@ export default function Home() {
               </div>
 
               <div className="animate-timeline-step-2 relative pb-8">
-                <span className="animate-timeline-dot-2 absolute -left-[33px] top-1 h-3.5 w-3.5 rounded-full bg-violet-500 ring-4 ring-violet-500/15" />
+                <span className="animate-timeline-dot-2 absolute top-1 -left-[33px] h-3.5 w-3.5 rounded-full bg-violet-500 ring-4 ring-violet-500/15" />
                 <p className="text-xs font-medium tracking-wide text-violet-700 uppercase dark:text-violet-300">
                   Step 02
                 </p>
-                <h3 className="mt-1.5 text-lg font-semibold">Capture anywhere</h3>
+                <h3 className="mt-1.5 text-lg font-semibold">
+                  Capture anywhere
+                </h3>
                 <p className="text-muted-foreground mt-1.5 max-w-sm text-sm leading-relaxed">
-                  Users scan a QR and switch to their phone for camera-friendly uploads.
+                  Users scan a QR and switch to their phone for camera-friendly
+                  uploads.
                 </p>
               </div>
 
               <div className="animate-timeline-step-3 relative">
-                <span className="animate-timeline-dot-3 absolute -left-[33px] top-1 h-3.5 w-3.5 rounded-full bg-emerald-500 ring-4 ring-emerald-500/15" />
+                <span className="animate-timeline-dot-3 absolute top-1 -left-[33px] h-3.5 w-3.5 rounded-full bg-emerald-500 ring-4 ring-emerald-500/15" />
                 <p className="text-xs font-medium tracking-wide text-emerald-700 uppercase dark:text-emerald-300">
                   Step 03
                 </p>
-                <h3 className="mt-1.5 text-lg font-semibold">Continue your flow</h3>
+                <h3 className="mt-1.5 text-lg font-semibold">
+                  Continue your flow
+                </h3>
                 <p className="text-muted-foreground mt-1.5 max-w-sm text-sm leading-relaxed">
-                  Files stream back to your app and users continue without friction.
+                  Files stream back to your app and users continue without
+                  friction.
                 </p>
               </div>
             </div>
@@ -235,7 +186,8 @@ export default function Home() {
                 Integrate in minutes
               </h2>
               <p className="text-muted-foreground mt-4 text-base leading-relaxed">
-                Two files. A few lines each. That&apos;s all it takes to add cross-device uploads to your app.
+                Two files. A few lines each. That&apos;s all it takes to add
+                cross-device uploads to your app.
               </p>
             </div>
             <div className="mx-auto mt-10 grid max-w-5xl gap-5 lg:grid-cols-2">
@@ -244,27 +196,37 @@ export default function Home() {
                   <span className="flex h-6 w-6 items-center justify-center rounded-md border border-sky-500/20 bg-sky-500/10">
                     <Terminal className="h-3.5 w-3.5 text-sky-500" />
                   </span>
-                  <span className="text-sm font-medium">Backend — route handler</span>
+                  <span className="text-sm font-medium">
+                    Backend — route handler
+                  </span>
                 </div>
-                <div className="overflow-hidden rounded-xl border border-border/70 bg-zinc-950 dark:bg-zinc-900">
+                <div className="border-border/70 overflow-hidden rounded-xl border bg-zinc-950 dark:bg-zinc-900">
                   <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
                     <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
                     <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
                     <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                    <span className="ml-3 text-xs text-white/40">api/syncsnap/[...syncsnap]/route.ts</span>
+                    <span className="ml-3 text-xs text-white/40">
+                      api/syncsnap/[...syncsnap]/route.ts
+                    </span>
                   </div>
                   <pre className="overflow-x-auto p-4 text-[13px] leading-relaxed">
                     <code>
                       <span className="text-violet-400">import</span>
-                      <span className="text-zinc-300">{" { SyncsnapServer } "}</span>
+                      <span className="text-zinc-300">
+                        {" { SyncsnapServer } "}
+                      </span>
                       <span className="text-violet-400">from</span>
-                      <span className="text-emerald-400">{" \"syncsnap\""}</span>
+                      <span className="text-emerald-400">{' "syncsnap"'}</span>
                       <span className="text-zinc-500">;</span>
                       {"\n"}
                       <span className="text-violet-400">import</span>
-                      <span className="text-zinc-300">{" { createRouteHandler } "}</span>
+                      <span className="text-zinc-300">
+                        {" { createRouteHandler } "}
+                      </span>
                       <span className="text-violet-400">from</span>
-                      <span className="text-emerald-400">{" \"syncsnap/next\""}</span>
+                      <span className="text-emerald-400">
+                        {' "syncsnap/next"'}
+                      </span>
                       <span className="text-zinc-500">;</span>
                       {"\n\n"}
                       <span className="text-violet-400">const</span>
@@ -292,7 +254,9 @@ export default function Home() {
                       <span className="text-sky-300">onCompleted</span>
                       <span className="text-zinc-300">{": "}</span>
                       <span className="text-violet-400">async</span>
-                      <span className="text-zinc-300">{" (job, presigned) "}</span>
+                      <span className="text-zinc-300">
+                        {" (job, presigned) "}
+                      </span>
                       <span className="text-violet-400">{"=> "}</span>
                       <span className="text-zinc-300">{"({"}</span>
                       {"\n"}
@@ -303,7 +267,9 @@ export default function Home() {
                       {"\n"}
                       <span className="text-zinc-300">{"    "}</span>
                       <span className="text-sky-300">downloadUrl</span>
-                      <span className="text-zinc-300">{": presigned?.url"}</span>
+                      <span className="text-zinc-300">
+                        {": presigned?.url"}
+                      </span>
                       <span className="text-zinc-500">,</span>
                       {"\n"}
                       <span className="text-zinc-300">{"  })"}</span>
@@ -320,9 +286,11 @@ export default function Home() {
                   <span className="flex h-6 w-6 items-center justify-center rounded-md border border-violet-500/20 bg-violet-500/10">
                     <Code className="h-3.5 w-3.5 text-violet-500" />
                   </span>
-                  <span className="text-sm font-medium">Frontend — upload button</span>
+                  <span className="text-sm font-medium">
+                    Frontend — upload button
+                  </span>
                 </div>
-                <div className="overflow-hidden rounded-xl border border-border/70 bg-zinc-950 dark:bg-zinc-900">
+                <div className="border-border/70 overflow-hidden rounded-xl border bg-zinc-950 dark:bg-zinc-900">
                   <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
                     <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
                     <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
@@ -332,7 +300,9 @@ export default function Home() {
                   <pre className="overflow-x-auto p-4 text-[13px] leading-relaxed">
                     <code>
                       <span className="text-sky-300">{"<"}</span>
-                      <span className="text-amber-300">SyncsnapUploadButton</span>
+                      <span className="text-amber-300">
+                        SyncsnapUploadButton
+                      </span>
                       {"\n"}
                       <span className="text-zinc-300">{"  "}</span>
                       <span className="text-sky-300">onJobCreated</span>
@@ -460,6 +430,10 @@ export default function Home() {
                 <ul className="text-muted-foreground space-y-3 text-sm">
                   <li className="flex items-center gap-2">
                     <Check className="h-4 w-4 shrink-0 text-emerald-500" />
+                    100,000 file uploads per month (shared across projects)
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="h-4 w-4 shrink-0 text-emerald-500" />
                     Unlimited projects
                   </li>
                   <li className="flex items-center gap-2">
@@ -534,47 +508,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-muted/30 mt-auto w-full border-t py-8">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-muted-foreground pr-3 text-sm">
-              © {new Date().getFullYear()} SyncSnap. All rights reserved.{" "}
-              <Link
-                href="/terms"
-                className="text-foreground pl-3 text-sm transition-colors hover:text-sky-600"
-              >
-                Terms
-              </Link>{" "}
-              <Link
-                href="/privacy"
-                className="text-foreground pl-3 text-sm transition-colors hover:text-sky-600"
-              >
-                Privacy
-              </Link>
-            </p>
-            <div className="flex items-center gap-6">
-              <a
-                href="https://linkedin.com/in/james-shah"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a
-                href="https://github.com/jamesshah/syncsnap"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

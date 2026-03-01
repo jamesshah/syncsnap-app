@@ -12,7 +12,7 @@ export function ProjectSidebar({ projectId }: ProjectSidebarProps) {
     <DashboardSidebar
       navItems={navItems}
       homeHref={`/dashboard/${projectId}`}
-      homeLabel="SyncSnap"
+      homeLabel="syncsnap"
     />
   );
 }
